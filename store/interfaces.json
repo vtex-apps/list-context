@@ -1,11 +1,12 @@
 {
-  "product-list-context": {
-    "component": "ProductListContext",
+  "list-context": {},
+  "list-context.product-list": {
+    "component": "ProductSummaryList",
     "composition": "children",
     "allowed": "*"
   },
-  "image-list-context": {
-    "component": "ImageListContext",
+  "list-context.image-list": {
+    "component": "ImageList",
     "composition": "children",
     "allowed": "*"
   }
