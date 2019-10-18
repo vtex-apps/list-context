@@ -3,11 +3,25 @@
   "list-context.product-list": {
     "component": "ProductSummaryList",
     "composition": "children",
-    "allowed": "*"
+    "allowed": "*",
+    "content": {
+      "properties": {
+        "buyButtonText": {
+          "$ref": "app:vtex.product-summary#/definitions/ProductSummaryList"
+        }
+      }
+    }
   },
   "list-context.image-list": {
     "component": "ImageList",
     "composition": "children",
-    "allowed": "*"
+    "allowed": "*",
+    "content": {
+      "properties": {
+        "images": {
+          "$ref": "app:vtex.store-image#/definitions/Images"
+        }
+      }
+    }
   }
 }
