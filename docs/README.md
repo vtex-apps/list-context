@@ -56,3 +56,8 @@ pre_build:
     - npm run verify
     - echo Lint and tests finished!
 ```
+
+
+**Upcoming documentation:**
+
+ - [Initial implementation for `list-context`](https://github.com/vtex-apps/list-context/pull/1)
