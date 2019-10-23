@@ -1,63 +1,127 @@
-# VTEX React App Template
+# VTEX List Context
 
-Our guide repository to structure for react apps, that should be used as a template.
+This app enables users to create lists of content that can be editable via Site Editor.
 
-We use `yarn` as our default package manager, before coding make sure to run yarn on: `root` and `react` folders.
+The only interface exposed by `vtex.list-context` is `list-context`, which is supposed to be extended by other apps that want to implement this kind of architecture.
 
-## Some features:
+It's important to notice that this should **not** be used directly as a block, but should be extended by other apps to create new interfaces that use this context, such as: `list-context.image-list`, implemented by `vtex.store-image` , and `list-context.product-list`, implemented by `vtex.product-summary`.
 
-### Tests
+## Creating a new list-context
 
-For testing we use `@vtex/test-tools`, our own testing framework based on `react-testing-library`, the tests should be located on the `react/__tests__` folder. For references, visit our [repository](https://github.com/vtex/test-tools).
+To extend `list-context` interface and create a new kind of list, here's what you should do:
 
-### Hooks
-
-Husky hooks tha runs on every `pre-commit` and `pre-push`.
-
-### Intl Equalizer
-
-Tool for equalizing the messages located on the `messages` folder/builder. It's configured to use the **en.json** as the default file for comparison. For references, visit our [repository](https://github.com/vtex/intl-equalizer).
-
-### Lint + Formatting
-
-TS lint configured with Prettier and .Config.
-
-### Available Scripts
+- Choose the app you want to implement this interface on, you could create a new one or use an existing one if it's makes more sense.
+- Declare a new interface in your `store/interfaces.json` file:
 
 ```json
-{
-  "lint": "cd ./react && yarn lint",
-  "test": "cd ./react && yarn test",
-  "lint:locales": "intl-equalizer",
-  "locales:fix": "intl-equalizer --fix",
-  "verify": "yarn lint && yarn lint:locales && yarn test"
+  "list-context.image-list": {
+    "component": "ImageList",
+    "composition": "children",
+    "allowed": "*",
+    "content": {
+      "properties": {
+        "images": {
+          "$ref": "app:vtex.store-image#/definitions/Images"
+        }
+      }
+    }
+  }
+```
+
+We recommend you to use `"composition": "children"` for this new interface so that you can compose it with other `list-context` ones.
+
+- Implement the actual React component to be rendered by this interface:
+
+```typescript
+import { useListContext, ListContextProvider } from 'vtex.list-context'
+
+(...)
+
+const ImageList: StorefrontFunctionComponent<Props> = ({
+  images,
+  height = 420,
+  children,
+}) => {
+  const { isMobile } = useDevice()
+  const { list } = useListContext() || []
+
+  const imageListContent = images.map(
+    ({ link, image, mobileImage, description }, idx) => (
+      <Image
+        key={idx}
+        src={isMobile && mobileImage ? mobileImage : image}
+        alt={description}
+        link={link}
+        maxHeight={height}
+        width="100%"
+      />
+    )
+  )
+
+  const newListContextValue = list.concat(imageListContent)
+
+  return (
+    <ListContextProvider list={newListContextValue}>
+      {children}
+    </ListContextProvider>
+  )
+}
+
+(...)
+```
+
+Notice that this app exports a React hook and a React component: `useListContext` and `<ListContextProvider />`.
+Also notice that this component should wrap its `children` a new `<ListContextProvider />` containing the new list which you just appended to.
+
+- No make sure this component is indeed editable via Site Editor, don't forget to add a `schema` to it, such as this one from `ImageList`:
+
+```tsx
+ImageList.schema = {
+  title: messages.title.id,
+  description: messages.description.id,
+  type: 'object',
+  properties: {
+    images: {
+      "type": "array",
+      "title": "admin/editor.image-list.images.title",
+      "items": {
+        "properties": {
+          "image": {
+            "$ref": "app:vtex.native-types#/definitions/url",
+            "default": "",
+            "title": "admin/editor.image-list.images.image.title",
+            "widget": {
+              "ui:widget": "image-uploader"
+            }
+          },
+          "mobileImage": {
+            "$ref": "app:vtex.native-types#/definitions/url",
+            "default": "",
+            "title": "admin/editor.image-list.images.mobileImage.title",
+            "widget": {
+              "ui:widget": "image-uploader"
+            }
+          },
+          "description": {
+            "$ref": "app:vtex.native-types#/definitions/text",
+            "default": "",
+            "title": "admin/editor.image-list.images.description.title"
+          },
+          "link": {
+            "default": "",
+            "title": "",
+            "$ref": "app:vtex.native-types#/definitions/link"
+          }
+        }
+      }
+    },
+    height: {
+      default: 420,
+      enum: [420, 440],
+      isLayout: true,
+      title: messages.heightTitle.id,
+      type: 'number',
+    },
+  },
 }
 ```
-
-### Ci
-
-#### Install:
-
-```yml
-install:
-  commands:
-    - echo Installing Packages...
-    - cd react
-    - npm install
-    - echo Packages installed!
-```
-
-#### Pre-build:
-
-```yml
-pre_build:
-  commands:
-    - echo Running tests...
-    - npm run verify
-    - echo Lint and tests finished!
-```
-
-
-**Upcoming documentation:**
-
- - [Initial implementation for `list-context`](https://github.com/vtex-apps/list-context/pull/1)
