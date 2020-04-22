@@ -3,7 +3,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "lint": "eslint --quiet --fix --ext ts,tsx ./react",
+    "lint": "eslint --quiet --fix --ext ts,tsx .",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json}\"",
     "test": "cd ./react && yarn test",
     "lint:locales": "intl-equalizer",
@@ -28,6 +28,7 @@
   "devDependencies": {
     "@vtex/intl-equalizer": "^2.3.0",
     "@vtex/prettier-config": "^0.1.3",
+    "@vtex/tsconfig": "^0.4.4",
     "eslint": "^6.8.0",
     "eslint-config-vtex": "^12.2.1",
     "eslint-config-vtex-react": "^6.2.1",
