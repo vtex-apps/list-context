@@ -18,12 +18,7 @@
     "@types/react-intl": "^2.3.18",
     "@vtex/test-tools": "^0.3.2",
     "@vtex/tsconfig": "^0.2.0",
-    "eslint": "^6.4.0",
-    "eslint-config-vtex": "^11.0.0",
-    "eslint-config-vtex-react": "^5.0.1",
-    "prettier": "^1.18.2",
-    "prop-types": "^15.7.2",
-    "typescript": "3.5.2"
+    "typescript": "3.8.3"
   },
   "version": "0.1.1"
 }
