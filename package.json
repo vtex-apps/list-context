@@ -3,7 +3,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "lint": "cd ./react && yarn lint",
+    "lint": "eslint --quiet --fix --ext ts,tsx ./react",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json}\"",
     "test": "cd ./react && yarn test",
     "lint:locales": "intl-equalizer",
