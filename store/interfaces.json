@@ -2,6 +2,17 @@
   "list-context": {
     "component": "ListContextProvider"
   },
+  "list-context.general": {
+    "component": "GeneralList",
+    "composition": "children",
+    "content": {
+      "properties": {
+        "Component": {
+          "$ref": "app:vtex.native-types#/definitions/componentSlot"
+        }
+      }
+    }
+  },
   "list-context-renderer": {
     "component": "ListRenderer"
   }
