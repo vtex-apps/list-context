@@ -1,6 +1,9 @@
 # VTEX List Context
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 This app enables users to create lists of content that can be editable via Site Editor.
@@ -85,38 +88,38 @@ ImageList.schema = {
   type: 'object',
   properties: {
     images: {
-      "type": "array",
-      "title": "admin/editor.image-list.images.title",
-      "items": {
-        "properties": {
-          "image": {
-            "$ref": "app:vtex.native-types#/definitions/url",
-            "default": "",
-            "title": "admin/editor.image-list.images.image.title",
-            "widget": {
-              "ui:widget": "image-uploader"
-            }
+      type: 'array',
+      title: 'admin/editor.image-list.images.title',
+      items: {
+        properties: {
+          image: {
+            $ref: 'app:vtex.native-types#/definitions/url',
+            default: '',
+            title: 'admin/editor.image-list.images.image.title',
+            widget: {
+              'ui:widget': 'image-uploader',
+            },
           },
-          "mobileImage": {
-            "$ref": "app:vtex.native-types#/definitions/url",
-            "default": "",
-            "title": "admin/editor.image-list.images.mobileImage.title",
-            "widget": {
-              "ui:widget": "image-uploader"
-            }
+          mobileImage: {
+            $ref: 'app:vtex.native-types#/definitions/url',
+            default: '',
+            title: 'admin/editor.image-list.images.mobileImage.title',
+            widget: {
+              'ui:widget': 'image-uploader',
+            },
           },
-          "description": {
-            "$ref": "app:vtex.native-types#/definitions/text",
-            "default": "",
-            "title": "admin/editor.image-list.images.description.title"
+          description: {
+            $ref: 'app:vtex.native-types#/definitions/text',
+            default: '',
+            title: 'admin/editor.image-list.images.description.title',
           },
-          "link": {
-            "default": "",
-            "title": "",
-            "$ref": "app:vtex.native-types#/definitions/link"
-          }
-        }
-      }
+          link: {
+            default: '',
+            title: '',
+            $ref: 'app:vtex.native-types#/definitions/link',
+          },
+        },
+      },
     },
     height: {
       default: 420,
@@ -129,6 +132,45 @@ ImageList.schema = {
 }
 ```
 
+## `list-context-renderer`
+
+Block that renders the list present in context.
+
+### Configuration
+
+1. Import the `vtex.list-context` app to your theme's dependencies in the `manifest.json`;
+
+```json
+  "dependencies": {
+    "vtex.list-context": "0.x"
+  }
+```
+
+2. Add the block `list-context-renderer` as a children of a `list-context` block. For example:
+
+```json
+{
+  "list-context.product-list#demo1": {
+    "blocks": ["product-summary.shelf"],
+    "children": ["list-context-renderer#wrapped"],
+    "props": {
+      "orderBy": "OrderByTopSaleDESC"
+    }
+  },
+  "list-context-renderer#wrapped": {
+    "props": {
+      "listElement": "ul",
+      "itemElement": "li"
+    }
+  }
+}
+```
+
+| Prop name     | Type     | Description                                                              | Default value |
+| ------------- | -------- | ------------------------------------------------------------------------ | ------------- |
+| `listElement` | `String` | HTML element used to render the list (ex: `div`, `ul`, etc)              | `Fragment`    |
+| `itemElement` | `String` | HTML element used to render the items of the list (ex: `div`, `li`, etc) | `Fragment`    |
+
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
@@ -138,6 +180,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
