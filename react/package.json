@@ -1,7 +1,7 @@
 {
   "scripts": {
     "lint": "tsc --noEmit && eslint --quiet --fix --ext ts,tsx .",
-    "test": "vtex-test-tools test"
+    "test": "vtex-test-tools test --passWithNoTests"
   },
   "dependencies": {
     "apollo-client": "^2.6.3",

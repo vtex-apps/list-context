@@ -3,6 +3,7 @@
     "component": "ListContextProvider"
   },
   "list-context-renderer": {
-    "component": "ListRenderer"
+    "component": "ListRenderer",
+    "composition": "children"
   }
 }
