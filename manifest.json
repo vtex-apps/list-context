@@ -7,10 +7,12 @@
   "builders": {
     "store": "0.x",
     "react": "3.x",
-    "messages": "1.x",
     "docs": "0.x"
   },
-  "dependencies": {},
+  "dependencies": {
+    "vtex.native-types": "0.x",
+    "vtex.css-handles": "1.x"
+  },
   "registries": [
     "smartcheckout"
   ],
