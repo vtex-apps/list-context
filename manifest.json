@@ -1,7 +1,7 @@
 {
   "vendor": "vtex",
   "name": "list-context",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "title": "VTEX List Context",
   "description": "Interfaces that enable the use of list-contexts in VTEX IO Store Framework",
   "builders": {

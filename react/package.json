@@ -23,5 +23,5 @@
     "vtex.native-types": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.native-types@0.7.5/public/@types/vtex.native-types",
     "vtex.render-runtime": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.126.5/public/@types/vtex.render-runtime"
   },
-  "version": "0.1.1"
+  "version": "0.2.0"
 }
